@@ -1,14 +1,24 @@
-// Setup
+# NodeJS + ExpressJS + Mongoose
 
+## Step start when clone
+```js
+npm install
+npm run dev
+```
+
+## Initial initialization steps
+
+```js
 npm init -y
-
 npm i express dotenv
-
 npm i -D typescript @types/express @types/node
-
 npx tsc --init
+npm i -D nodemon ts-node
+```
 
-//Add "outDir"
+### Modify config
+```js
+// tsconfig.json | add "outDir" path
 {
   "compilerOptions": {
     ...
@@ -16,9 +26,7 @@ npx tsc --init
     ...
   }
 }
-
-npm i -D nodemon ts-node
-
+//package.json
 {
   "scripts": {
     "build": "npx tsc",
@@ -26,3 +34,4 @@ npm i -D nodemon ts-node
     "dev": "nodemon src/index.ts"
   }
 }
+```

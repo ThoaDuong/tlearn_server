@@ -17,11 +17,10 @@ const port = process.env.PORT || 3000;
 const cookieName = process.env.COOKIE_NAME || "name";
 const cookieKey = process.env.COOKIE_KEY || "key";
 const clientUrl = process.env.CLIENT_URL || "";
-
-const google_client_id = process.env.GOOGLE_CLIENT_ID || "id";
+const serverUrl = process.env.SERVER_URL || "";
 
 const corsOptions = {
-    origin: ["https://localhost:5173", "http://localhost:5173", "http://127.0.0.1:5173", clientUrl],
+    origin: ["https://localhost:5173", "http://localhost:5173", "http://127.0.0.1:5173", clientUrl, serverUrl],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }
