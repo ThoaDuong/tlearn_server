@@ -24,7 +24,7 @@ const serverUrlHttp = serverUrl.replace('https', 'http');
 
 const corsOptions = {
     origin: ["https://localhost:5173", "http://localhost:5173", "http://127.0.0.1:5173", 
-        clientUrl, serverUrl, clientUrlHttp, serverUrlHttp
+        clientUrl, serverUrl, clientUrlHttp, serverUrlHttp, `${clientUrl}/*`
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
