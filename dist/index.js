@@ -42,9 +42,14 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 const cookieName = process.env.COOKIE_NAME || "name";
 const cookieKey = process.env.COOKIE_KEY || "key";
-const google_client_id = process.env.GOOGLE_CLIENT_ID || "id";
+const clientUrl = process.env.CLIENT_URL || "";
+const clientUrlHttp = clientUrl.replace('https', 'http');
+const serverUrl = process.env.SERVER_URL || "";
+const serverUrlHttp = serverUrl.replace('https', 'http');
 const corsOptions = {
-    origin: ["https://localhost:5173", "http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: ["https://localhost:5173", "http://localhost:5173", "http://127.0.0.1:5173",
+        clientUrl, serverUrl, clientUrlHttp, serverUrlHttp
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 };
