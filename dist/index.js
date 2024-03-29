@@ -45,8 +45,11 @@ const cookieKey = process.env.COOKIE_KEY || "key";
 const clientUrl = process.env.CLIENT_URL || "";
 const clientUrlHttp = clientUrl.replace('https', 'http');
 const corsOptions = {
-    origin: ["https://localhost:5173", "http://localhost:5173", "http://127.0.0.1:5173",
-        clientUrl, clientUrlHttp, `${clientUrl}/*`, `${clientUrlHttp}/*`
+    origin: [
+        "https://tlearn-english.netlify.app",
+        "http://tlearn-english.netlify.app",
+        "https://tlearn-english.netlify.app/*",
+        "http://tlearn-english.netlify.app/*",
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
