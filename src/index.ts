@@ -19,12 +19,13 @@ const cookieKey = process.env.COOKIE_KEY || "key";
 
 
 const corsOptions = {
-    origin: [
-        'https://tlearn-english.netlify.app',
-        'http://tlearn-english.netlify.app',
-        'https://tlearn-english.netlify.app/*',
-        'http://tlearn-english.netlify.app/*',
-    ],
+    // origin: [
+    //     'https://tlearn-english.netlify.app',
+    //     'http://tlearn-english.netlify.app',
+    //     'https://tlearn-english.netlify.app/*',
+    //     'http://tlearn-english.netlify.app/*',
+    // ],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }
