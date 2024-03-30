@@ -16,16 +16,14 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 const cookieName = process.env.COOKIE_NAME || "name";
 const cookieKey = process.env.COOKIE_KEY || "key";
-const clientUrl = process.env.CLIENT_URL || "";
-const clientUrlHttp = clientUrl.replace('https', 'http');
 
 
 const corsOptions = {
     origin: [
-        "https://tlearn-english.netlify.app",
-        "http://tlearn-english.netlify.app",
-        "https://tlearn-english.netlify.app/*",
-        "http://tlearn-english.netlify.app/*",
+        'https://tlearn-english.netlify.app',
+        'http://tlearn-english.netlify.app',
+        'https://tlearn-english.netlify.app/*',
+        'http://tlearn-english.netlify.app/*',
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
@@ -55,9 +53,9 @@ app.use(function(request, response, next) {
 
 
 //passport | auth
+app.use(cors(corsOptions));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors(corsOptions));
 app.use(json());
 
 // api 

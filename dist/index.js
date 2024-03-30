@@ -42,14 +42,12 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 const cookieName = process.env.COOKIE_NAME || "name";
 const cookieKey = process.env.COOKIE_KEY || "key";
-const clientUrl = process.env.CLIENT_URL || "";
-const clientUrlHttp = clientUrl.replace('https', 'http');
 const corsOptions = {
     origin: [
-        "https://tlearn-english.netlify.app",
-        "http://tlearn-english.netlify.app",
-        "https://tlearn-english.netlify.app/*",
-        "http://tlearn-english.netlify.app/*",
+        'https://tlearn-english.netlify.app',
+        'http://tlearn-english.netlify.app',
+        'https://tlearn-english.netlify.app/*',
+        'http://tlearn-english.netlify.app/*',
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
@@ -76,9 +74,9 @@ app.use(function (request, response, next) {
     next();
 });
 //passport | auth
+app.use((0, cors_1.default)(corsOptions));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
-app.use((0, cors_1.default)(corsOptions));
 app.use((0, express_1.json)());
 // api 
 app.use('/', googleAuthApi_1.googleAuthRouter);
