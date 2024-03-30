@@ -25,7 +25,8 @@ const corsOptions = {
     //     'https://tlearn-english.netlify.app/*',
     //     'http://tlearn-english.netlify.app/*',
     // ],
-    origin: "*",
+    origin: "https://tlearn-english.netlify.app",
+    headers: ["Content-Type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }
