@@ -15,6 +15,11 @@ googleAuthRouter.get('/login/success', (req, res) => {
             message: 'Login successfully',
             user: req.user
         })
+    }else{
+        res.status(401).json({
+            success: false,
+            message: 'Login failed'
+        })
     }
     
 })
