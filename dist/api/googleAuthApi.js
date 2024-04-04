@@ -42,6 +42,12 @@ exports.googleAuthRouter.get('/login/success', (req, res) => {
             user: req.user
         });
     }
+    else {
+        res.status(401).json({
+            success: false,
+            message: 'Login failed'
+        });
+    }
 });
 // handle login failed
 exports.googleAuthRouter.get('/login/failed', (req, res) => {

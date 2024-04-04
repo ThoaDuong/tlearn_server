@@ -43,13 +43,8 @@ const port = process.env.PORT || 3000;
 const cookieName = process.env.COOKIE_NAME || "name";
 const cookieKey = process.env.COOKIE_KEY || "key";
 const corsOptions = {
-    // origin: [
-    //     'https://tlearn-english.netlify.app',
-    //     'http://tlearn-english.netlify.app',
-    //     'https://tlearn-english.netlify.app/*',
-    //     'http://tlearn-english.netlify.app/*',
-    // ],
-    origin: "*",
+    origin: ["https://tlearn-voca.netlify.app", "http://localhost:5173"],
+    headers: ["Content-Type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 };
