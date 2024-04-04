@@ -26,11 +26,13 @@ const corsOptions = {
 }
 
 //middleware
+app.set('trust proxy', 1) 
 //cookie
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     name: cookieName,
     keys: [cookieKey],
+    secureProxy: true
 }))
 // register regenerate & save after the cookieSession middleware initialization
 app.use(function(request, response, next) {
