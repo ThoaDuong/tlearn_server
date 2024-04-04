@@ -32,7 +32,9 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     name: cookieName,
     keys: [cookieKey],
-    secureProxy: true
+    secure: true,
+    httpOnly: true,
+    sameSite: 'none'
 }))
 // register regenerate & save after the cookieSession middleware initialization
 app.use(function(request, response, next) {
