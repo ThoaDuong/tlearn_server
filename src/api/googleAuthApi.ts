@@ -19,7 +19,6 @@ googleAuthRouter.get('/login/success', (req, res) => {
         res.status(401).json({
             success: false,
             message: 'Login failed',
-            reqData: req
         })
     }
     

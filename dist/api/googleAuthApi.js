@@ -45,7 +45,7 @@ exports.googleAuthRouter.get('/login/success', (req, res) => {
     else {
         res.status(401).json({
             success: false,
-            message: 'Login failed'
+            message: 'Login failed',
         });
     }
 });
