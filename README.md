@@ -31,7 +31,7 @@ npm i -D nodemon ts-node
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
   }
 }
 ```
