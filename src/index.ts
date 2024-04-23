@@ -34,7 +34,7 @@ app.use(cookieSession({
     keys: [cookieKey],
     secure: true,
     httpOnly: true,
-    sameSite: 'none'
+    // sameSite: 'none'
 }))
 // register regenerate & save after the cookieSession middleware initialization
 app.use(function(request, response, next) {
