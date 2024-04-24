@@ -7,12 +7,13 @@ dotenv.config();
 
 const clientId = process.env.GOOGLE_CLIENT_ID || "id";
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "secret";
+const server_url = process.env.SERVER_URL || "";
 const GoogleStrategy = passportGoogleAuth.Strategy;
 
 passport.use(new GoogleStrategy({
     clientID: clientId,
     clientSecret: clientSecret,
-    callbackURL: "/google/callback"
+    callbackURL: server_url + "/google/callback"
 },
     async (accessToken, refreshToken, profile, done) => {
         let user: any = null;
