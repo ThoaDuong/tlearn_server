@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import vocaModel from '../models/vocaModel'
+import { ObjectId } from 'mongodb';
 
 //get all vocabularies
 export const getAllVocabularies = async (req: Request, res: Response) => {
@@ -15,20 +16,20 @@ export const getAllVocabularies = async (req: Request, res: Response) => {
 export const getVocabularyByUserID = async (req: Request, res: Response) => {
     const { userID } = req.params;
     try{
-        // const vocaData = await vocaModel.findById(userID);
-
-        const vocaData = await vocaModel.aggregate([{
-            $lookup: {
-                from: "groups", // collection name in db
-                localField: "groupID",
-                foreignField: "_id",
-                as: "groupData"
+        const vocaData = await vocaModel.aggregate([
+            {
+                $lookup: {
+                    from: "groups", // collection name in db
+                    localField: "groupID",
+                    foreignField: "_id",
+                    as: "groupData"
+                }
+            },
+            {
+                $match: {userID: new ObjectId(userID)} 
             }
-        }])
-
-        // if(!vocaData){
-        //     return res.status(404).json({error: 'Vocabulary not found'})
-        // }
+        ])
+        
         res.status(200).json(vocaData);
     }catch(error: any){
         res.status(400).json({error: error.message});
