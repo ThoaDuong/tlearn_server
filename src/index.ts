@@ -8,6 +8,7 @@ import cors from "cors";
 import { vocaRouter } from "./api/vocaApi";
 import { groupRouter } from "./api/groupApi";
 import { googleAuthRouter } from "./api/googleAuthApi";
+import { writingRouter } from "./api/writingApi";
 
 dotenv.config();
 const app: Express = express();
@@ -62,6 +63,7 @@ app.use(json());
 app.use('/', googleAuthRouter);
 app.use('/group', groupRouter);
 app.use('/vocabulary', vocaRouter);
+app.use('/writing', writingRouter);
 
 
 
