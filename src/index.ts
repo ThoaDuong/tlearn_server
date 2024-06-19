@@ -26,8 +26,8 @@ const corsOptions = {
     credentials: true,
 }
 
-//middleware
 app.set('trust proxy', 1) 
+
 //cookie
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
@@ -59,8 +59,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(json());
 
-// api 
+// api | google login
 app.use('/', googleAuthRouter);
+
+//middleware | protected route
+app.use((req, res, next) => {
+    req.user ? next() :  res.status(401).json({
+        success: false,
+        message: 'Login failed'
+    })
+})
+
+// api 
 app.use('/group', groupRouter);
 app.use('/vocabulary', vocaRouter);
 app.use('/writing', writingRouter);
