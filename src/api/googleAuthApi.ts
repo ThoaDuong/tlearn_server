@@ -39,7 +39,10 @@ googleAuthRouter.get('/logout', (req, res, next) => {
 })
 
 // handle first click login
-googleAuthRouter.get('/google/login', passport.authenticate('google', { scope: ["profile", "email"] }));
+googleAuthRouter.get('/google/login', passport.authenticate('google', { 
+    scope: ["profile", "email"],
+    prompt: "select_account"
+}));
 // handle call back
 googleAuthRouter.get('/google/callback', passport.authenticate('google', {
     successRedirect: clientUrl,

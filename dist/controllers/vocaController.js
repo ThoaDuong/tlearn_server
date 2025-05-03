@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateVocabulary = exports.deleteVocabulary = exports.addNewVocabulary = exports.getVocabularyByUserID = exports.getAllVocabularies = void 0;
 const vocaModel_1 = __importDefault(require("../models/vocaModel"));
+const mongodb_1 = require("mongodb");
 //get all vocabularies
 const getAllVocabularies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -29,18 +30,19 @@ exports.getAllVocabularies = getAllVocabularies;
 const getVocabularyByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userID } = req.params;
     try {
-        // const vocaData = await vocaModel.findById(userID);
-        const vocaData = yield vocaModel_1.default.aggregate([{
+        const vocaData = yield vocaModel_1.default.aggregate([
+            {
                 $lookup: {
                     from: "groups", // collection name in db
                     localField: "groupID",
                     foreignField: "_id",
                     as: "groupData"
                 }
-            }]);
-        // if(!vocaData){
-        //     return res.status(404).json({error: 'Vocabulary not found'})
-        // }
+            },
+            {
+                $match: { userID: new mongodb_1.ObjectId(userID) }
+            }
+        ]);
         res.status(200).json(vocaData);
     }
     catch (error) {

@@ -42,11 +42,12 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const clientId = process.env.GOOGLE_CLIENT_ID || "id";
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "secret";
+const server_url = process.env.SERVER_URL || "";
 const GoogleStrategy = passport_google_oauth20_1.default.Strategy;
 passport_1.default.use(new GoogleStrategy({
     clientID: clientId,
     clientSecret: clientSecret,
-    callbackURL: "/google/callback"
+    callbackURL: server_url + "/google/callback"
 }, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     let user = null;
     try {

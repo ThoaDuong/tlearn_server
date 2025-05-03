@@ -8,11 +8,13 @@ const vocaSchema = new mongoose_1.Schema({
     },
     type: {
         type: String,
-        required: true,
+        required: false,
+        default: null
     },
     groupID: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: false,
+        default: null
     },
     userID: {
         type: mongoose_1.Schema.Types.ObjectId,

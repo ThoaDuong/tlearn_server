@@ -36,6 +36,7 @@ const cors_1 = __importDefault(require("cors"));
 const vocaApi_1 = require("./api/vocaApi");
 const groupApi_1 = require("./api/groupApi");
 const googleAuthApi_1 = require("./api/googleAuthApi");
+const writingApi_1 = require("./api/writingApi");
 dotenv.config();
 const app = (0, express_1.default)();
 //static variable
@@ -48,7 +49,6 @@ const corsOptions = {
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 };
-//middleware
 app.set('trust proxy', 1);
 //cookie
 app.use((0, cookie_session_1.default)({
@@ -78,10 +78,19 @@ app.use((0, cors_1.default)(corsOptions));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 app.use((0, express_1.json)());
-// api 
+// api | google login
 app.use('/', googleAuthApi_1.googleAuthRouter);
+//middleware | protected route
+app.use((req, res, next) => {
+    req.user ? next() : res.status(401).json({
+        success: false,
+        message: 'Login failed'
+    });
+});
+// api 
 app.use('/group', groupApi_1.groupRouter);
 app.use('/vocabulary', vocaApi_1.vocaRouter);
+app.use('/writing', writingApi_1.writingRouter);
 // connect to db
 const mongo_uri = process.env.MONGO_URI || '';
 mongoose_1.default.connect(mongo_uri)

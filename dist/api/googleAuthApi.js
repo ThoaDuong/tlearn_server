@@ -65,7 +65,10 @@ exports.googleAuthRouter.get('/logout', (req, res, next) => {
     res.redirect(clientUrl);
 });
 // handle first click login
-exports.googleAuthRouter.get('/google/login', passport_1.default.authenticate('google', { scope: ["profile", "email"] }));
+exports.googleAuthRouter.get('/google/login', passport_1.default.authenticate('google', {
+    scope: ["profile", "email"],
+    prompt: "select_account"
+}));
 // handle call back
 exports.googleAuthRouter.get('/google/callback', passport_1.default.authenticate('google', {
     successRedirect: clientUrl,
