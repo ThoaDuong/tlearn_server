@@ -23,6 +23,40 @@ export const getWritingListByUserID = async (req: Request, res: Response) => {
     }
 }
 
+// get writing list by page
+export const getWritingListByPage = async (req: Request, res: Response) => {
+    try{
+        const { page, limit, keyword } = req.query;
+        const { userID } = req.params;
+        const pageNumber = parseInt(page as string) || 1;
+        const limitNumber = parseInt(limit as string) || 10;
+        const skip = (pageNumber - 1) * limitNumber;
+
+        const filter: any = { userID };
+        if (keyword) {
+            filter.$or = [
+                { title: { $regex: keyword, $options: 'i' } },
+                { content: { $regex: keyword, $options: 'i' } }
+            ];
+        }
+
+        const writingData = await writingModel.find(filter)
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limitNumber);
+
+        const totalWriting = await writingModel.countDocuments({userID});
+
+        res.status(200).json({
+            writingData,
+            totalWriting
+        });
+
+    }catch(error: any){
+        res.status(400).json({error: error.message});
+    }
+}
+
 // add new writing
 export const addNewWriting = async (req: Request, res: Response) => {
     try{

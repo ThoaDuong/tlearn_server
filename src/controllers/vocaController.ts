@@ -1,12 +1,54 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import vocaModel from '../models/vocaModel'
-import { ObjectId } from 'mongodb';
+import {ObjectId} from 'mongodb';
 
 //get all vocabularies
 export const getAllVocabularies = async (req: Request, res: Response) => {
     try{
         const vocaData = await vocaModel.find();
         res.status(200).json(vocaData);
+    }catch(error: any){
+        res.status(400).json({error: error.message});
+    }
+}
+
+// get vocabularies by page filter with userID
+export const getVocabulariesByPageAndGroup = async (req: Request, res: Response) => {
+    try{
+        const { page, limit, groupID, keyword } = req.query;
+        const { userID } = req.params;
+
+        const pageNumber = parseInt(page as string) || 1;
+        const limitNumber = parseInt(limit as string) || 10;
+        const skip = (pageNumber - 1) * limitNumber;
+        const matchStage: {userID: ObjectId, groupID?: ObjectId, word?: any} = { userID: new ObjectId(userID) };
+        if (typeof groupID === 'string' && ObjectId.isValid(groupID)) {
+            matchStage.groupID = new ObjectId(groupID);
+        }
+        if (typeof keyword === 'string') {
+            matchStage.word = { $regex: keyword, $options: 'i' };
+        }
+
+        const vocaData = await vocaModel.aggregate([
+            {
+                $lookup: {
+                    from: "groups", // collection name in db
+                    localField: "groupID",
+                    foreignField: "_id",
+                    as: "groupData"
+                }
+            },
+            {
+                $match: matchStage,
+            }
+        ])
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limitNumber);
+
+
+        const totalVoca = await vocaModel.countDocuments(matchStage);
+        res.status(200).json({vocaData, totalVoca});
     }catch(error: any){
         res.status(400).json({error: error.message});
     }

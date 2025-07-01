@@ -1,5 +1,5 @@
 import express from 'express'
-import { addNewWriting, deleteWritingByID, getAllWritingList, getWritingListByUserID, updateWritingByID } from '../controllers/writingController';
+import { addNewWriting, deleteWritingByID, getAllWritingList, getWritingListByUserID, getWritingListByPage, updateWritingByID } from '../controllers/writingController';
 
 export const writingRouter = express.Router();
 
@@ -8,6 +8,9 @@ writingRouter.get("/", getAllWritingList);
 
 // get writing list by user id
 writingRouter.get("/:userID", getWritingListByUserID);
+
+// get writing list by user id
+writingRouter.get("/page/:userID", getWritingListByPage);
 
 // add new writing 
 writingRouter.post("/", addNewWriting);
